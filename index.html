@@ -104,9 +104,9 @@ h1,h2,h3{margin:0;font-family:var(--f-display);letter-spacing:-.02em;text-wrap:b
 /* dialogs */
 dialog{border:0;padding:0;color:var(--ink);background:var(--bg)}
 dialog::backdrop{background:rgba(10,20,15,.55)}
-dialog.sheet{width:min(900px,calc(100vw - 24px));max-height:calc(100dvh - 24px);border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+dialog.sheet{width:min(900px,calc(100vw - 24px));max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.4)}
 dialog.sheet[open]{display:flex;flex-direction:column}
-@media (max-width:680px){dialog.sheet{width:100%;max-width:100%;margin:auto 0 0;border-radius:22px 22px 0 0;max-height:94dvh}}
+@media (max-width:680px){dialog.sheet{width:100%;max-width:100%;margin:auto 0 0;border-radius:22px 22px 0 0;max-height:94vh;max-height:94dvh}}
 .dhero{position:relative;flex:none;height:210px;background:var(--cc)}
 .dhero svg{position:absolute;inset:6% 0 4%;width:100%;height:90%}
 .xbtn{position:absolute;right:14px;top:14px;height:42px;padding:0 16px;border-radius:21px;border:0;background:#fff;color:#13231C;font-weight:700;z-index:2}
@@ -141,7 +141,7 @@ dialog.sheet[open]{display:flex;flex-direction:column}
 @media (max-width:680px){.dfoot .btn.ghost{display:none}.dfoot .btn{flex:1}}
 
 /* drawer */
-dialog.drawer{margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min(440px,100vw);max-width:100vw;border-radius:0;overflow:hidden;box-shadow:-12px 0 40px rgba(0,0,0,.3)}
+dialog.drawer{margin:0 0 0 auto;height:100vh;max-height:100vh;height:100dvh;max-height:100dvh;width:min(440px,100vw);max-width:100vw;border-radius:0;overflow:hidden;box-shadow:-12px 0 40px rgba(0,0,0,.3)}
 dialog.drawer[open]{display:flex;flex-direction:column;animation:slide .22s ease-out}
 @keyframes slide{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){dialog.drawer[open]{animation:none}}
@@ -184,6 +184,7 @@ dialog.drawer[open]{display:flex;flex-direction:column;animation:slide .22s ease
 </style>
 </head>
 <body>
+<script>window.addEventListener('error',function(e){var d=document.createElement('div');d.style.cssText='position:fixed;left:8px;right:8px;bottom:8px;z-index:99;background:#7A1F1F;color:#fff;font:12px/1.4 monospace;padding:8px 10px;border-radius:8px';d.textContent='Fehler: '+(e.message||'unbekannt')+' ('+(e.lineno||'?')+')';document.body.appendChild(d);});</script>
 
 
 <div class="wrap">
@@ -379,7 +380,8 @@ function renderDrawer(){
    <div class="tabs" role="tablist"><button class="tab" role="tab" data-act="tab" data-id="plan" aria-selected="${tab==='plan'}">Plan (${n})</button><button class="tab" role="tab" data-act="tab" data-id="einkauf" aria-selected="${tab==='einkauf'}">Einkauf</button></div>
    <div class="dr-body">${body}</div>`;
 }
-function openDrawer(t){tab=t||tab;const d=$('#drawer');renderDrawer();if(!d.open)d.showModal();}
+function openModal(d){try{if(typeof d.showModal==='function'){d.showModal();return;}}catch(e){}d.setAttribute('open','');d.style.position='fixed';d.style.inset='0';d.style.zIndex='50';}
+function openDrawer(t){tab=t||tab;const d=$('#drawer');renderDrawer();if(!d.open)openModal(d);}
 
 /* suggest a week */
 function pick(pool,used){const p=pool.filter(r=>!used.has(r.id));return p[Math.floor(Math.random()*p.length)];}
@@ -410,7 +412,7 @@ function openDetail(id){
    ${r.variant?`<div class="note"><b>Variante</b>${esc(r.variant.replace(/^Variante[^:]*:\s*/,''))}</div>`:''}
    ${r.tip?`<div class="note"><b>Tipp</b>${esc(r.tip)}</div>`:''}</div></div>
    <div class="dfoot"><button class="btn ghost" data-act="close">Schließen</button><button class="btn ${on?'':'hi'}" data-act="toggle-dlg" data-id="${id}">${on?'In der Woche, entfernen':'Zur Woche hinzufügen'}</button></div>`;
-  if(!d.open)d.showModal();
+  if(!d.open)openModal(d);
 }
 
 function toggle(id){if(inPlan(id))delete S.plan[id];else S.plan[id]='';save();refresh();}
