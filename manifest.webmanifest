@@ -1,0 +1,14 @@
+{
+  "name": "Unsere Rezeptkarten",
+  "short_name": "Rezepte",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F6F1E9",
+  "theme_color": "#F6F1E9",
+  "lang": "de",
+  "icons": [
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png"}
+  ]
+}
