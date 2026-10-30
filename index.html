@@ -106,11 +106,11 @@ dialog{border:0;padding:0;color:var(--ink);background:var(--bg)}
 dialog::backdrop{background:rgba(10,20,15,.55)}
 dialog.sheet{width:min(900px,calc(100vw - 24px));max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.4)}
 dialog.sheet[open]{display:flex;flex-direction:column}
-@media (max-width:680px){dialog.sheet{width:100%;max-width:100%;margin:auto 0 0;border-radius:22px 22px 0 0;max-height:94vh;max-height:94dvh}}
+@media (max-width:680px){dialog.sheet{width:100%;max-width:100%;margin:auto 0 0;border-radius:22px 22px 0 0;height:94vh;height:94dvh;max-height:94vh;max-height:94dvh}}
 .dhero{position:relative;flex:none;height:210px;background:var(--cc)}
 .dhero svg{position:absolute;inset:6% 0 4%;width:100%;height:90%}
 .xbtn{position:absolute;right:14px;top:14px;height:42px;padding:0 16px;border-radius:21px;border:0;background:#fff;color:#13231C;font-weight:700;z-index:2}
-.dscroll{overflow:auto;flex:1}
+.dscroll{overflow:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto;min-height:0}
 .dhead{padding:20px 22px 6px}
 .dhead h2{font-size:clamp(26px,4vw,36px);line-height:1.1;font-weight:750;margin:8px 0 12px}
 .dmeta{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-family:var(--f-mono);font-size:13px}
